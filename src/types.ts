@@ -6,5 +6,4 @@ export type Customer = {
 };
 
 export type CreateCustomer = Omit<Customer, 'id' | 'status'>;
-export type CustomerWithoutId = Omit<Customer, 'id'>;
-export type UpdateCustomer = Partial<CustomerWithoutId>;
+export type UpdateCustomer = Partial<Omit<Customer, 'id'>>;

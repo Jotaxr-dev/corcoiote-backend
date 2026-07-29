@@ -1,5 +1,5 @@
 import type { NextFunction, Request, Response } from 'express';
-import { NotFoundError } from '../errors/index.ts';
+import { BadRequestError, NotFoundError } from '../errors/index.ts';
 
 export default function errorHandler(
 	error: unknown,
@@ -9,6 +9,14 @@ export default function errorHandler(
 ): void {
 	if (error instanceof NotFoundError) {
 		response.status(error.statusCode).json({ message: error.message });
+		return;
+	}
+
+	if (error instanceof BadRequestError) {
+		response.status(error.statusCode).json({
+			message: error.message,
+			fields: error.fields
+		});
 		return;
 	}
 

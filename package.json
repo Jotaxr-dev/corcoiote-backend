@@ -1,7 +1,7 @@
 {
     "type": "module",
     "scripts": {
-        "dev": "node --watch --env-file=.env src/server.ts"
+        "dev": "node --watch --env-file=.env ./src/server.ts"
     },
     "devDependencies": {
         "@biomejs/biome": "2.5.0",
@@ -11,6 +11,10 @@
         "typescript": "^6.0.3"
     },
     "dependencies": {
-        "express": "^5.2.1"
+        "express": "^5.2.1",
+        "zod": "^4.4.3"
+    },
+    "allowScripts": {
+        "lefthook@2.1.9": true
     }
 }

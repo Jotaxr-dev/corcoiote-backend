@@ -9,3 +9,14 @@ export type ValidationFieldError = {
 	field: string;
 	message: string;
 };
+
+type InvoiceStatus = 'PENDING' | 'PAID';
+
+export type Invoice = {
+	id: number;
+	amount: number;
+	status: InvoiceStatus;
+	date: Date;
+	customerID: number;
+	createdAt: Date;
+};

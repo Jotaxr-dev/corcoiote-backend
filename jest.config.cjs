@@ -1,14 +1,18 @@
 module.exports = {
-    testEnviroment: "node",
+    testEnvironment: "node",
     transform: {
         "^.+\\.ts$": [
             "@swc/jest", {
                 jsc: {
-                    parse: {syntax: "typescript"},
-                    targte: "esnext"
+                    parser: {syntax: "typescript"},
+                    target: "esnext"
                 },
                 module: { type: "commonjs"}
             }
         ]
-    }
-}
+    },
+   moduleNameMapper: {
+		'^(@prisma/client/runtime/.*)\\.mjs$': '$1.js'
+	},
+	testMatch: ['<rootDir>/tests/**/*.test.ts']
+};

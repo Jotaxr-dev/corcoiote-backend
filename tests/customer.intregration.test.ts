@@ -1,4 +1,5 @@
 import request from 'supertest';
+import { email } from 'zod';
 import app from '../src/app.ts';
 import prisma from '../src/lib/prisma.ts';
 
@@ -16,7 +17,7 @@ describe('GET /customers', () => {
 		const res = await request(app).get('/customers/999');
 
 		expect(res.status).toBe(404);
-		expect(res.body.messsage).toBe('Cliente não encontrado.');
+		expect(res.body.message).toBe('Cliente com id 999 não encontrado.');
 	});
 });
 
@@ -32,5 +33,19 @@ describe('POST /customer', () => {
 			name: 'Jota nl',
 			email: 'jotadl@gmail.com'
 		});
+	});
+
+	test('retorna erro 400 quando o email é valído', async () => {
+		const res = await request(app).post('/customers').send({
+			name: 'Ana Bessa',
+			email: 'não é um email'
+		});
+
+		expect(res.status).toBe(400);
+		expect(res.body.fields).toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({ field: 'email' })
+			])
+		);
 	});
 });
